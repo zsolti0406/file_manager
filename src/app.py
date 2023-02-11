@@ -19,7 +19,7 @@ migrate = Migrate(app, db)
 class Tag(db.Model):
     id = db.Column(db.Integer, db.Sequence("tag_id_seq", start=1), primary_key=True)
     content = db.Column(db.String(255), unique=True, nullable=False)
-    main_page_tag = db.Column(db.Boolean, nullable=False, default=False)
+    index_tag = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
         return f"{self.content}"
@@ -39,11 +39,11 @@ def index():
 
 @app.route('/add_data')
 def add_data():
-    return render_template('add_data.html')
+    tags = Tag.query.all()
+    return render_template('add_data.html', tags=tags)
 
 
-# function to add profiles
-@app.route('/add', methods=["POST"])
+@app.route('/add_tag', methods=["POST"])
 def tag():
     # In this function we will input data from the
     # form page and store it in our database.
@@ -58,13 +58,25 @@ def tag():
         t = Tag(content=tag_content)
         db.session.add(t)
         db.session.commit()
-        return redirect('/')
+        return redirect('/add_data')
     else:
-        return redirect('/')
+        return redirect('/add_data')
+
+
+@app.route('/add_tag_relation', methods=["POST"])
+def tag_relation():
+    parent_tag = request.form.get("parent_tag")
+    print(parent_tag)
+    child_tag = request.form.get("child_tag")
+    print(child_tag)
+    tag_relation = TagRelation(parent_tag=parent_tag, child_tag=child_tag)
+    db.session.add(tag_relation)
+    db.session.commit()
+    return redirect('/add_data')
 
 
 @app.route('/delete/<int:id>')
-def erase(id):
+def delete(id):
     # deletes the data on the basis of unique id and
     # directs to home page
     data = Tag.query.get(id)

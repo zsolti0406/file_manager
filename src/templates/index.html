@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Index Page</title>
+   </head>
+   <body>
+      <h3>Profiles</h3>
+      <a href="/add_data">ADD</a>
+      <br>
+      <table>
+         <thead>
+            <th>Id</th>
+            <th>Content</th>
+         </thead>
+         {% for data in tags %}
+         <tbody>
+            <td>{{data.id}}</td>
+            <td>{{data.content}}</td>
+            <td><a href="/delete/{{data.id}}" type="button">Delete</a></td>
+         </tbody>
+         {% endfor%}
+      </table>
+   </body>
+</html>

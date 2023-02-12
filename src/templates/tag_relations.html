@@ -4,18 +4,15 @@
 <h3>Add tag relation</h3>
     <form action="/add_tag_relation" method="POST">
       <label>Parent tag</label>
-      <select name="parent_tag"
+      <select name="parent_tag">
         {% for tag in tags %}
-          <OPTION value={{tag.content}}
-      >
-            {{tag.content}}
-          </OPTION>
+          <option value="{{tag.content}}">{{tag.content}}</option>
         {% endfor %}
       </select>
       <label>Child tag</label>
-      <select name="child_tag"
+      <select name="child_tag">
         {% for tag in tags %}
-          <OPTION value={{tag.content}}>
+          <OPTION value="{{tag.content}}">
             {{tag.content}}
           </OPTION>
         {% endfor %}

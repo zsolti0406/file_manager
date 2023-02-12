@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h3>Add tag</h3>
+
+	<form action="/add_tag" method="POST">
+		<label>Tag</label>
+		<input type="text" name="tag_content" placeholder="tag content...">
+		<button type="submit">Add</button>
+	</form>
+	<br>
+	<table>
+		 <thead>
+			<th>Content</th>
+		 </thead>
+		 {% for data in tags %}
+		 <tbody>
+			<td>{{data.content}}</td>
+			<td><a href="/delete_tag/{{data.id}}" type="button">Delete</a></td>
+		 </tbody>
+		 {% endfor%}
+	</table>
+{% endblock %}

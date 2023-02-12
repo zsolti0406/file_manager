@@ -12,10 +12,13 @@
 	<table>
 		 <thead>
 			<th>Content</th>
+			<th>Index tag</th>
 		 </thead>
 		 {% for data in tags %}
 		 <tbody>
 			<td>{{data.content}}</td>
+			<td>{{data.index_tag}}</td>
+			<td><a href="/make_index_tag/{{data.id}}" type="button">Make index tag</a></td>
 			<td><a href="/delete_tag/{{data.id}}" type="button">Delete</a></td>
 		 </tbody>
 		 {% endfor%}

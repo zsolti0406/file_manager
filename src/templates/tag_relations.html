@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Tag relations</title>
+   </head>
+   <body>
+       <table>
+         <thead>
+            <th>Parent tag</th>
+            <th>Child tag</th>
+         </thead>
+         {% for tag_relation in tag_relations %}
+         <tbody>
+            <td>{{tag_relation.parent_tag}}</td>
+            <td>{{tag_relation.child_tag}}</td>
+            <td><a href="/delete/{{tag_relation.id}}" type="button">Delete</a></td>
+         </tbody>
+         {% endfor%}
+      </table>
+   </body>
+</html>

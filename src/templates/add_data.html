@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>Data management</title>
-   </head>
-   <body>
-      <h3>Add tag</h3>
-      <form action="/add_tag" method="POST">
-         <label>Tag</label>
-         <input type="text" name="tag_content" placeholder="tag content...">
-         <button type="submit">Add</button>
-      </form>
-	  <h3>Add tag relation</h3>
-	  <form action="/add_tag_relation" method="POST">
-         <label>Parent tag</label>
-         <select name="parent_tag"
-			{% for tag in tags %}
-				<OPTION value={{tag.content}}
-		>
-					{{tag.content}}
-				</OPTION>
-			{% endfor %}
-		 </select>
-		 <label>Child tag</label>
-         <select name="child_tag"
-			{% for tag in tags %}
-				<OPTION value={{tag.content}}
-		>
-					{{tag.content}}
-				</OPTION>
-			{% endfor %}
-		 </select>
-         <button type="submit">Add</button>
-      </form>
-   </body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}">
+		<title>Data management</title>
+	</head>
+	<body>
+		<div align="center">
+			<h3>Add tag</h3>
+			<form action="/add_tag" method="POST">
+				<label>Tag</label>
+				<input type="text" name="tag_content" placeholder="tag content...">
+				<button type="submit">Add</button>
+			</form>
+			<br>
+			<a href="/all_tags">Show all tags</a>
+			<h3>Add tag relation</h3>
+			<form action="/add_tag_relation" method="POST">
+				<label>Parent tag</label>
+				<select name="parent_tag"
+					{% for tag in tags %}
+						<OPTION value={{tag.content}}>
+							{{tag.content}}
+						</OPTION>
+					{% endfor %}
+				</select>
+				<label>Child tag</label>
+				<select name="child_tag"
+					{% for tag in tags %}
+						<OPTION value={{tag.content}}>
+							{{tag.content}}
+						</OPTION>
+					{% endfor %}
+				</select>
+				<button type="submit">Add</button>
+			</form>
+			<br>
+			<a href="/tag_relations">Show all tag relations</a>
+		</div>
+	</body>
 </html>

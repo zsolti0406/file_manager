@@ -64,7 +64,7 @@ def tag():
 
 
 @app.route('/add_tag_relation', methods=["POST"])
-def tag_relation():
+def add_tag_relation():
     parent_tag = request.form.get("parent_tag")
     print(parent_tag)
     child_tag = request.form.get("child_tag")
@@ -84,6 +84,11 @@ def delete(id):
     db.session.commit()
     return redirect('/')
 
+
+@app.route('/tag_relations')
+def tag_relation():
+    tag_relations = TagRelation.query.all()
+    return render_template('tag_relations.html', tag_relations=tag_relations)
 
 if __name__ == '__main__':
     app.run()

@@ -1,11 +1,30 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="/add_data">Manage tags</a>
+<h3>Browser</h3>
+<br>
+<table>
+	<thead>
+		<th>Id</th>
+		<th>Content</th>
+	</thead>
+	{% for data in tags %}
+		<tbody>
+			<td>{{data.id}}</td>
+			<td>{{data.content}}</td>
+			<td><a href="/delete/{{data.id}}" type="button">Delete</a></td>
+		</tbody>
+	{% endfor%}
+</table>
+{% endblock %}
 <html>
-   <head>
-      <title>Index Page</title>
-   </head>
-   <body>
-      <h3>Browser</h3>
+  <head>
+    <title>Index Page</title>
+  </head>
+  <body>
       <a href="/add_data">Manage tags</a>
+      <h3>Browser</h3>
       <br>
       <table>
          <thead>

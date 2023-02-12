@@ -63,20 +63,11 @@ def tag():
         return redirect('/add_data')
 
 
-@app.route('/add_tag_relation', methods=["POST"])
-def add_tag_relation():
-    parent_tag = request.form.get("parent_tag")
-    print(parent_tag)
-    child_tag = request.form.get("child_tag")
-    print(child_tag)
-    tag_relation = TagRelation(parent_tag=parent_tag, child_tag=child_tag)
-    db.session.add(tag_relation)
-    db.session.commit()
-    return redirect('/add_data')
+
 
 
 @app.route('/delete/<int:id>')
-def delete(id):
+def delete_tag(id):
     # deletes the data on the basis of unique id and
     # directs to home page
     data = Tag.query.get(id)
@@ -87,8 +78,33 @@ def delete(id):
 
 @app.route('/tag_relations')
 def tag_relation():
+    tags = Tag.query.all()
     tag_relations = TagRelation.query.all()
-    return render_template('tag_relations.html', tag_relations=tag_relations)
+    return render_template('tag_relations.html', tags=tags, tag_relations=tag_relations)
+
+
+@app.route('/add_tag_relation', methods=["POST"])
+def add_tag_relation():
+    parent_tag = request.form.get("parent_tag")
+    print(parent_tag)
+    child_tag = request.form.get("child_tag")
+    print(child_tag)
+    tag_relation = TagRelation(parent_tag=parent_tag, child_tag=child_tag)
+    db.session.add(tag_relation)
+    db.session.commit()
+    return redirect('/tag_relations')
+
+@app.route('/delete_tag_relation/<int:id>')
+def delete_tag_relation(id):
+    # deletes the data on the basis of unique id and
+    # directs to home page
+    data = TagRelation.query.get(id)
+    db.session.delete(data)
+    db.session.commit()
+    return redirect('/tag_relations')
+
+
+
 
 if __name__ == '__main__':
     app.run()

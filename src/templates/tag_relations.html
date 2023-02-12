@@ -1,21 +1,38 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Tag relations</title>
-   </head>
-   <body>
-       <table>
-         <thead>
-            <th>Parent tag</th>
-            <th>Child tag</th>
-         </thead>
-         {% for tag_relation in tag_relations %}
-         <tbody>
-            <td>{{tag_relation.parent_tag}}</td>
-            <td>{{tag_relation.child_tag}}</td>
-            <td><a href="/delete/{{tag_relation.id}}" type="button">Delete</a></td>
-         </tbody>
-         {% endfor%}
-      </table>
-   </body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Add tag relation</h3>
+    <form action="/add_tag_relation" method="POST">
+      <label>Parent tag</label>
+      <select name="parent_tag"
+        {% for tag in tags %}
+          <OPTION value={{tag.content}}
+      >
+            {{tag.content}}
+          </OPTION>
+        {% endfor %}
+      </select>
+      <label>Child tag</label>
+      <select name="child_tag"
+        {% for tag in tags %}
+          <OPTION value={{tag.content}}>
+            {{tag.content}}
+          </OPTION>
+        {% endfor %}
+      </select>
+      <button type="submit">Add</button>
+    </form>
+    <table>
+      <thead>
+        <th>Parent tag</th>
+        <th>Child tag</th>
+      </thead>
+      {% for tag_relation in tag_relations %}
+        <tbody>
+          <td>{{tag_relation.parent_tag}}</td>
+          <td>{{tag_relation.child_tag}}</td>
+          <td><a href="/delete_tag_relation/{{tag_relation.id}}" type="button">Delete</a></td>
+        </tbody>
+       {% endfor%}
+    </table>
+{% endblock %}

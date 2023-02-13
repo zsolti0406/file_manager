@@ -6,9 +6,15 @@
 		 <thead>
 			<th>Content</th>
 		 </thead>
-		 {% for data in tags %}
+		 {% for element in browser_object %}
 		 <tbody>
-			<td>{{data.content}}</td>
+			
+			<td>
+			{% if element.has_subtag %}
+				<a href='/browser/{{element.tag.id}}'>
+			{% endif %}
+			{{element.tag.content}}
+			</td>
 		 </tbody>
 		 {% endfor%}
 	</table>

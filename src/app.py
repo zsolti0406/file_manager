@@ -49,7 +49,17 @@ def browser(id):
             ids.add(element)
 
     child_tags = Tag.query.filter(Tag.id.in_(ids)).all()
-    return render_template('browser.html', tags=child_tags)
+
+    browser_object = []
+    for child_tag in child_tags:
+        element = {'tag': child_tag}
+        if len(TagRelation.query.filter_by(parent_tag=child_tag.id).all()):
+            element['has_subtag'] = True
+        else:
+            element['has_subtag'] = False
+        browser_object.append(element)
+
+    return render_template('browser.html', browser_object=browser_object)
 
 
 @app.route('/tags')
